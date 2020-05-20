@@ -33,10 +33,10 @@ if ($global:DefaultVIServer) {
 }
 
 $ClusterName = Read-host "Please enter a cluster name"
-$VM = "TMilestoneRec" 
-$Datastore = "vsanDatastore-DC3_Video_V2"  
-$NewVmList = "pwmilcin014"#, "pwmilcin016", "pwmilcin017", "pwmilcin018", "pwmilcin019"  
-$CustSpec = "new_cust_sp"  
+$VM = #"servername" 
+$Datastore = #"datastorename"  
+$NewVmList = #"comma_seperated_namelist"  
+$CustSpec = #"name_of_custimation_spec"  
 $taskTab = @{}
  
 # Create all the VMs specified in $newVmList  
@@ -44,7 +44,7 @@ foreach($Name in $newVmList) {
      $taskTab[(New-VM -Name $Name -ResourcePool $clustername -VM $VM -Datastore $datastore -OSCustomizationSpec $custSpec  -RunAsync).Id] = $Name  
 }  
 
-start-sleep -s 15
+start-sleep -s 15 #may need to increase depending on environment
 
 foreach ($Name in $NewVMList) 
 	{Start-VM -VM $Name}
